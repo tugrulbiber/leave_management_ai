@@ -1,0 +1,124 @@
+openapi: 3.0.1
+info:
+  title: Leave AI API
+  version: 1.0.0
+  description: İzin yönetim sistemine yapay zekâ destekli öneri ve analiz sağlayan API.
+
+paths:
+  /api/ai/suggest-leave-dates:
+    post:
+      summary: Uygun izin tarihleri öner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                leaveType:
+                  type: string
+                suggestionRange:
+                  type: string
+              required: [userId, leaveType, suggestionRange]
+      responses:
+        '200':
+          description: Başarılı öneri
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recommendedDates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start:
+                          type: string
+                        end:
+                          type: string
+                  reason:
+                    type: string
+
+  /api/ai/evaluate-leave-request:
+    post:
+      summary: Yapay zekaya izin isteğini değerlendir
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                startDate:
+                  type: string
+                endDate:
+                  type: string
+                leaveType:
+                  type: string
+              required: [userId, startDate, endDate, leaveType]
+      responses:
+        '200':
+          description: Değerlendirme sonucu
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isRecommended:
+                    type: boolean
+                  reason:
+                    type: string
+
+  /api/ai/stats:
+    get:
+      summary: AI istatistiklerini getir
+      responses:
+        '200':
+          description: İstatistik verileri
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mostFrequentLeaveMonth:
+                    type: string
+                  avgLeaveLength:
+                    type: number
+                  mostSuggestedLeaveType:
+                    type: string
+                  aiAccuracyEstimate:
+                    type: string
+
+  /api/ai/retrain:
+    post:
+      summary: Yapay zekayı yeniden eğit
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trigger:
+                  type: string
+                notes:
+                  type: string
+      responses:
+        '200':
+          description: Eğitim sonucu
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  modelVersion:
+                    type: string
+                  retrainedAt:
+                    type: string

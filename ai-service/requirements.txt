@@ -1,0 +1,5 @@
+flask
+joblib
+scikit-learn==1.6.1
+psycopg2-binary
+pandas
