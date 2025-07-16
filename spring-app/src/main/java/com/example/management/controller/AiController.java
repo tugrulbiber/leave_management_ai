@@ -25,3 +25,6 @@ public class AiController {
         return ResponseEntity.ok(result);
     }
 }
+
+
+//qweqweqweqweqweqweqweqweqweqweqweqweqweqwe
