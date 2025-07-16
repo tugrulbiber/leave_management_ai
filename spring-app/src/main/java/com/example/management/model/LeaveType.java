@@ -26,3 +26,6 @@ public class LeaveType {
     @OneToMany(mappedBy = "leaveType", cascade = CascadeType.ALL)
     private List<LeaveBalance> leaveBalances;
 }
+
+
+//test deneme deneme
